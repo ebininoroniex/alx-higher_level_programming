@@ -1,2 +1,4 @@
 #!/usr/bin/python3
-print(''.join([chr(x) for x in range(97, 123) if x not in (101, 113)]), end='')
+for char in range(26):
+    if char != 4 and char != 16:
+        print("{:s}".format(chr(char + ord("a"))), end="")
