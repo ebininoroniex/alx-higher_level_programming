@@ -6,25 +6,27 @@
  *@head: pointer to head of list
  *Return: 0 if it is not a palindrome, 1 if it is a palindrome
  **/
-int is_palindrome(listint_t **head)
-{
-	listint_t *start = *head;
-	listint_t *end = *head;
-	int i, j;
+typedef struct listint_s listint_t;
 
-	if (*head == NULL)
-		return (1);
-	while (end->next != NULL)
-	{
-		end = end->next;
-	}
-	for (i = 0; start != end; i++)
-	{
-		for (j = 0; j < i; j++)
-			end = end->next;
-		if (start->n != end->n)
-			return (0);
-		start = start->next;
-	}
-	return (1);
+int is_palindrome(listint_t **head) {
+    listint_t *tmp = *head;
+    int size = 0;
+    int array[2048];
+    int i = 0;
+ 
+    if (!(*head))
+        return (1);
+ 
+    while (tmp != NULL) {
+        array[size] = tmp->n;
+        size++;
+        tmp = tmp->next;
+    }
+ 
+    while (i < size) {
+        if (array[i] != array[size - 1 - i])
+            return (0);
+        i++;
+    }
+    return (1);
 }
