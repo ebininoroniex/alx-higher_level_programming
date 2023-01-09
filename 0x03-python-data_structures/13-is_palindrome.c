@@ -8,28 +8,29 @@
  **/
 int is_palindrome(listint_t **head)
 {
-	listint_t *node = *head;
-	listint_t *prev = NULL;
-	int res = 1;
+	listint_t *fast, *slow;
 
-	while (node)
+	fast = slow = *head;
+	while (fast && fast->next)
 	{
-		listint_t *next = node->next;
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+	listint_t *tmp, *prev = NULL;
 
-		node->next = prev;
-		prev = node;
-		node = next;
-	}
-	node = prev;
-	while (node)
+	while (slow)
 	{
-		if (node->n != (*head)->n)
-		{
-			res = 0;
-			break;
-		}
-		node = node->next;
-		(*head) = (*head)->next;
+		tmp = slow->next;
+		slow->next = prev;
+		prev = slow;
+		slow = tmp;
 	}
-	return (res);
+	while (prev)
+	{
+		if (prev->n != (*head)->n)
+			return (0);
+		prev = prev->next;
+		*head = (*head)->next;
+	}
+	return (1);
 }
